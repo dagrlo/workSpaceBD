@@ -1,0 +1,36 @@
+package capitulo1.boletin1.serial;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+
+import capitulo1.boletin1.clases.Departamento;
+import capitulo1.boletin1.clases.Empleado;
+import capitulo1.boletin1.dao.DepartamentoDao;
+import capitulo1.boletin1.dao.EmpleadoDao;
+
+public class MultiSerialWriter {
+	private static Collection<Empleado>empleadosNuevos;
+	private Collection<Departamento>departamentosNuevos;
+	private EmpleadoDao eDao=new EmpleadoDao();
+	private DepartamentoDao dDao=new DepartamentoDao();
+	private static SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");	
+	
+	public static void main(String[] args){
+		empleadosNuevos.add(new Empleado("003","Pablo","Ivar Soriano","004",getFecha("2006-07-06"),"MGR",7,20396.00,11109.00
+ 
+));
+	}
+	
+	public static Date getFecha(String fecha){
+		Date d = null;
+		try {
+			 d=formatter.parse(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return d;
+	}
+}

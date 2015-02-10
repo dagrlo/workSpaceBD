@@ -1,0 +1,60 @@
+package capitulo1.boletin1.dao;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+
+import capitulo1.boletin1.clases.Departamento;
+
+public class DepartamentoDao {
+	
+	public DepartamentoDao(){
+		
+	}
+	
+	public void save(Departamento departamento,String fileName){
+		FileOutputStream fout=null;
+		ObjectOutputStream oout=null;
+		try{
+			fout = new FileOutputStream(fileName);
+			oout=new ObjectOutputStream(fout);
+			oout.writeObject(departamento);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			try {if (oout!=null) oout.close();}
+			catch (IOException e){}
+			try {if (fout!=null) fout.close();}
+			catch (IOException e) {}
+		}
+	}
+	
+	
+	public Departamento read(String fileName){
+		FileInputStream fin = null;
+        ObjectInputStream oin = null;
+        Departamento departamentoGuardado=null;
+
+        try {
+        	fin = new FileInputStream(fileName);
+            oin = new ObjectInputStream(fin);
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            departamentoGuardado= (Departamento)oin.readObject();          
+            }
+        catch (Exception e) {
+        	e.printStackTrace();
+        }
+        finally {
+        	try { if (oin != null) oin.close(); }
+        	catch (IOException e) {}
+        	try { if (fin != null) fin.close(); }
+        	catch (IOException e) {}
+        }
+        return departamentoGuardado;
+	}
+}

@@ -1,0 +1,28 @@
+package capitulo1.boletin1.dao;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+import capitulo1.boletin1.clases.Empleado;
+
+public class EmpleadoDao {
+
+	public void save(Empleado empleado,String fileName){
+		FileOutputStream fout=null;
+		ObjectOutputStream oout=null;
+		try{
+			fout = new FileOutputStream(fileName);
+			oout=new ObjectOutputStream(fout);
+			oout.writeObject(empleado);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			try {if (oout!=null) oout.close();}
+			catch (IOException e){}
+			try {if (fout!=null) fout.close();}
+			catch (IOException e) {}
+		}
+	}
+	
+}

@@ -1,0 +1,77 @@
+package capitulo1.boletin1.dao;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import capitulo1.boletin1.clases.Departamento;
+import capitulo1.boletin1.clases.Empleado;
+
+
+/*
+ *    Esta clase se puede probar en VerEmpleados.java
+ */
+
+public class CheckIntegridad {
+	
+	private static ArrayList<Empleado>empleados=new ArrayList<Empleado>();
+	private static ArrayList<Departamento>departamentos=new ArrayList<Departamento>();
+	private boolean rPaso1, rPaso2;
+	
+	public CheckIntegridad(Collection<Departamento> departamentos, Collection<Empleado> empleados){
+		this.empleados=(ArrayList<Empleado>) empleados;
+		this.departamentos=(ArrayList<Departamento>) departamentos;
+		rPaso1=paso1();
+		rPaso2=paso2();
+	}
+	
+	public boolean getIntegridad(){
+		return rPaso1&&rPaso2;
+	}
+	
+	private boolean paso1(){
+		boolean res=false;
+		
+		for (Empleado empleado:empleados){
+			if (existeDepartamento(empleado.getDepartamento())){
+				res=true;
+			}
+		}
+		
+		return res;
+	}
+	
+	private boolean paso2(){
+		boolean res=false;
+		
+		for (Departamento departamento:departamentos){
+			if ((!departamento.getManager().equals(""))&&(existeManager(departamento.getManager()))){
+				res=true;
+			}
+		}
+		
+		return res;
+	}
+	
+	private boolean existeDepartamento(String idDepartamento){
+		boolean res=false;
+		
+		for (Departamento departamento:departamentos){
+			if (departamento.getIdDepartamento().equals(idDepartamento)){
+				res=true;
+			}
+		}		
+		return res;
+	}
+	
+	private boolean existeManager(String manager){
+		boolean res=false;
+		
+		for (Empleado empleado:empleados){
+			if (empleado.getIdEmpleado().equals(manager)){
+				res=true;
+			}
+		}
+		
+		return res;
+	}
+}

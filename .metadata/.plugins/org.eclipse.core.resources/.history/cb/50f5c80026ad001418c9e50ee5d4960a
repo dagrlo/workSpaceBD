@@ -1,0 +1,41 @@
+package capitulo1.boletin1.dao;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import capitulo1.boletin1.clases.Departamento;
+import capitulo1.boletin1.clases.Empleado;
+
+public class CheckIntegridad {
+	
+	private static ArrayList<Empleado>empleados=new ArrayList<Empleado>();
+	private static ArrayList<Departamento>departamentos=new ArrayList<Departamento>();
+	
+	public CheckIntegridad(Collection<Departamento> departamentos, Collection<Empleado> empleados){
+		this.empleados=(ArrayList<Empleado>) empleados;
+		this.departamentos=(ArrayList<Departamento>) departamentos;
+	}
+	
+	private boolean paso1(){
+		boolean res=false;
+		
+		for (Empleado empleado:empleados){
+			if (existeDepartamento(empleado.getDepartamento())){
+				res=true;
+			}
+		}
+		
+		return res;
+	}
+	
+	private boolean existeDepartamento(String idDepartamento){
+		boolean res=false;
+		
+		for (Departamento departamento:departamentos){
+			if (departamento.getIdDepartamento().equals(idDepartamento)){
+				res=true;
+			}
+		}		
+		return res;
+	}
+}
